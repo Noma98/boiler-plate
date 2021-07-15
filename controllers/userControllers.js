@@ -59,3 +59,12 @@ export const getAuth = (req, res) => {
         isAdmin: role === 0 ? false : true,
     })
 }
+export const getLogout = async (req, res) => {
+    try {
+        await BlogUser.findOneAndUpdate({ _id: req.user._id },
+            { token: "", });
+        return res.status(200).json({ success: true });
+    } catch (err) {
+        return res.status(400).json({ success: false, err });
+    }
+}

@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     image: { type: String, default: "" },
-    admin: { type: Number, default: 0 },
+    role: { type: Number, default: 0 },
     token: String,
     tokenExp: Number,
 });
