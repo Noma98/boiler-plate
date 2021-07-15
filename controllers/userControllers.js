@@ -9,8 +9,8 @@ export const postJoin = async (req, res) => {
             password,
             image
         });
-        return res.status(200).json({ success: true });
+        return res.status(201).json({ success: true });
     } catch (err) {
-        return res.status(400).json({ success: false, err: err });
+        return res.status(400).json({ success: false, err });
     }
 }
