@@ -47,3 +47,15 @@ export const postLogin = async (req, res) => {
         });
     }
 };
+export const getAuth = (req, res) => {
+    //여기는 Authentication이 Ture인 상태
+    const { _id, role, email, name, image } = req.user;
+    return res.status(200).json({
+        _id,
+        email,
+        name,
+        image,
+        isAuth: true,
+        isAdmin: role === 0 ? false : true,
+    })
+}
