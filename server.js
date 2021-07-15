@@ -1,7 +1,8 @@
 
 import morgan from 'morgan';
 import express from 'express';
-import authRouter from './routers/authRouter';
+import userRouter from './routers/userRouter';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
@@ -9,7 +10,8 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.text());
+app.use(cookieParser());
 
-app.use('/api/auth', authRouter);
+app.use('/api/user', userRouter);
 
 export default app;
