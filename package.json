@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec babel-node server/init.js",
+    "dev": "concurrently \"npm start\" \"npm start --prefix client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "noma",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "concurrently": "^6.2.0",
     "cookie-parser": "^1.4.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
