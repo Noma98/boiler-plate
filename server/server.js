@@ -13,5 +13,7 @@ app.use(express.text());
 app.use(cookieParser());
 
 app.use('/api/user', userRouter);
-
+app.get('/api/hello', (req, res) => {
+    res.send("hello~");
+})
 export default app;
