@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import withAuth from '../../../hoc/withAuth';
 
 function LandingPage() {
     const history = useHistory();
@@ -22,4 +23,4 @@ function LandingPage() {
     )
 }
 
-export default LandingPage
+export default withAuth(LandingPage, null);

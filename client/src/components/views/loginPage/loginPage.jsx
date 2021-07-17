@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
 import { useHistory } from 'react-router-dom';
+import withAuth from '../../../hoc/withAuth';
 
 function LoginPage() {
     const history = useHistory();
@@ -47,4 +48,4 @@ function LoginPage() {
     )
 }
 
-export default LoginPage
+export default withAuth(LoginPage, false);

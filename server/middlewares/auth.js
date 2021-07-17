@@ -10,7 +10,6 @@ export const authMiddleware = async (req, res, next) => {
         const user = await BlogUser.findByToken(token);
         if (!user) {
             return res.json({
-                success: false,
                 isAuth: false
             });
         }
@@ -19,6 +18,6 @@ export const authMiddleware = async (req, res, next) => {
         req.user = user;
         next();
     } catch (err) {
-        return res.json({ success: false, isAuth: "ERROR" });
+        return res.json({ isAuth: false, error: true });
     }
 }

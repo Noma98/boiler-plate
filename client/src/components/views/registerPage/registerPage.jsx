@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../_actions/user_action';
 import { useHistory } from 'react-router-dom';
+import withAuth from '../../../hoc/withAuth';
 
 function RegisterPage() {
     const history = useHistory();
@@ -66,4 +67,4 @@ function RegisterPage() {
     )
 }
 
-export default RegisterPage
+export default withAuth(RegisterPage, false);

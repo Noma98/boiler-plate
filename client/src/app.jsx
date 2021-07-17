@@ -4,6 +4,7 @@ import LandingPage from './components/views/landingPage/landingPage';
 import LoginPage from './components/views/loginPage/loginPage';
 import RegisterPage from './components/views/registerPage/registerPage';
 
+
 function App() {
   return (
     <BrowserRouter>
