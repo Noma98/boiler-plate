@@ -2,31 +2,34 @@ import BlogUser from '../models/User.js';
 
 
 export const postJoin = async (req, res) => {
-    const { name, email, password, image } = req.body;
+    const { name, email, password } = req.body;
+    const userExists = await BlogUser.exists({ email });
+    if (userExists) {
+        return res.json({ joinSuccess: false, message: "이미 사용중인 이메일입니다." });
+    }
     try {
         await BlogUser.create({
             name,
             email,
             password,
-            image
         });
-        return res.status(201).json({ success: true });
+        return res.status(201).json({ joinSuccess: true, message: "회원가입 성공" });
     } catch (err) {
-        return res.status(400).json({ success: false, err });
+        return res.status(400).json({ joinSuccess: false, message: err });
     }
 }
 export const postLogin = async (req, res) => {
     const { email, password } = req.body;
     const user = await BlogUser.findOne({ email });
     if (!user) {
-        return res.status(400).json({
+        return res.json({
             loginSuccess: false,
             message: "해당 이메일이 없습니다."
         })
     }
     const isMatch = await BlogUser.comparePassword(password, user.password);
     if (!isMatch) {
-        return res.status(400).json({ loginSuccess: false, message: "비밀번호가 틀렸습니다." });
+        return res.json({ loginSuccess: false, message: "비밀번호가 틀렸습니다." });
     };
     try {
         const token = await BlogUser.generateToken(user);
@@ -41,7 +44,7 @@ export const postLogin = async (req, res) => {
                 message: "로그인 성공"
             });
     } catch (err) {
-        return res.status(400).json({
+        return res.json({
             loginSuccess: false,
             message: "토큰 생성 실패"
         });
@@ -65,6 +68,6 @@ export const getLogout = async (req, res) => {
             { token: "", });
         return res.status(200).json({ success: true });
     } catch (err) {
-        return res.status(400).json({ success: false, err });
+        return res.json({ success: false, err });
     }
 }

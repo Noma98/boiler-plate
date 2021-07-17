@@ -26,7 +26,7 @@ function LoginPage() {
                 if (response.payload.loginSuccess) {
                     history.push("/");
                 } else {
-                    alert("⛔로그인 실패");
+                    alert(`⛔로그인 실패: ${response.payload.message}`);
                 }
             })
 
@@ -39,7 +39,7 @@ function LoginPage() {
                 <label>Email</label>
                 <input type="email" value={email} onChange={handleEmail} />
                 <label>Password</label>
-                <input type="password" value={password} onChange={handlePassword} />
+                <input type="password" minLength="5" value={password} onChange={handlePassword} />
                 <br />
                 <button>Login</button>
             </form>
