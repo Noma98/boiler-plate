@@ -1,19 +1,23 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function LandingPage() {
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await axios.get('/api/hello');
-            console.log(res);
+    const history = useHistory();
+    const handleLogout = async () => {
+        const res = await axios.get('/api/user/logout');
+        if (res.data.success) {
+            history.push('/login');
+        } else {
+            alert("⛔ 로그아웃 실패");
         }
-        fetchData();
-    }, [])
+    }
     return (
         <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100vh'
+            display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100vh'
         }}>
             <h2>시작 페이지</h2>
+            <button onClick={handleLogout}>로그아웃</button>
         </div>
     )
 }

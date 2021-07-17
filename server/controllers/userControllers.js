@@ -34,7 +34,7 @@ export const postLogin = async (req, res) => {
     try {
         const token = await BlogUser.generateToken(user);
         user.token = token;
-        user.save();
+        await user.save();
         return res
             .status(200)
             .cookie("x_auth", user.token)
@@ -66,7 +66,7 @@ export const getLogout = async (req, res) => {
     try {
         await BlogUser.findOneAndUpdate({ _id: req.user._id },
             { token: "", });
-        return res.status(200).json({ success: true });
+        return res.status(200).cookie("x_auth", null).json({ success: true });
     } catch (err) {
         return res.json({ success: false, err });
     }

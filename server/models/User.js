@@ -40,13 +40,16 @@ userSchema.static("generateToken", async function (user) {
     return jwt.sign(user._id.toHexString(), config.tokenSecret);
 })
 userSchema.static("findByToken", async function (token) {
-    //토큰 decode => user._id
-    const decoded = jwt.verify(token, config.tokenSecret);
+    try {
+        //토큰 decode => user._id
+        const decoded = jwt.verify(token, config.tokenSecret);
 
-    //user._id를 이용해서 유저를 찾은 다음에 클라이언트에서 가져온 토큰과 DB에 보관된 토큰이 일치하는지 확인
-    const user = await this.findOne({ _id: decoded, token });
-    console.log(user);
-    return user;
+        //user._id를 이용해서 유저를 찾은 다음에 클라이언트에서 가져온 토큰과 DB에 보관된 토큰이 일치하는지 확인
+        const user = await this.findOne({ _id: decoded, token });
+        return user;
+    } catch {
+        return null;
+    }
 })
 const BlogUser = mongoose.model("BlogUser", userSchema);
 export default BlogUser;

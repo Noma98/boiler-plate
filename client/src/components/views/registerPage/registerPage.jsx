@@ -36,7 +36,7 @@ function RegisterPage() {
         dispatch(registerUser(body))
             .then(response => {
                 if (response.payload.joinSuccess) {
-                    history.push("/");
+                    history.push("/login");
                 } else {
                     alert(`⛔회원가입 실패 : ${response.payload.message}`);
                 }
